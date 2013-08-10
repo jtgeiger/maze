@@ -34,9 +34,13 @@ public class Maze
         Room two = new Room();
 
         one.setEast( two );
-        one.setNorth( new Room() );
+        Room three = new Room();
+        one.setNorth( three );
+        three.setSouth( one );
         two.setWest( one );
-        two.setSouth( new Room() );
+        Room four = new Room();
+        two.setSouth( four );
+        four.setNorth( two );
 
         GameState state = new GameState();
         state.setRoom( one );
