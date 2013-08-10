@@ -3,17 +3,15 @@ package com.alltooeasy.maze.ui;
 import java.awt.Graphics;
 import java.awt.Insets;
 
-import javax.swing.JPanel;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import javax.swing.JComponent;
 
 import com.alltooeasy.maze.GameState;
+import com.alltooeasy.maze.domain.Player;
 import com.alltooeasy.maze.domain.Room;
 
-public class MazePanel extends JPanel
+public class MazePanel extends JComponent
 {
-    final static private Logger log = LoggerFactory.getLogger( MazePanel.class );
+    //final static private Logger log = LoggerFactory.getLogger( MazePanel.class );
 
     /**
      *
@@ -25,19 +23,23 @@ public class MazePanel extends JPanel
     public void display( GameState state )
     {
         this.state = state;
+
         repaint();
     }
 
     @Override
     protected void paintComponent( Graphics g )
     {
+        super.paintComponent( g );
+
+        g = g.create();
 
         Insets insets = getInsets();
-        log.info( "Insets={}", insets );
+        //log.info( "Insets={}", insets );
 
         g.translate( insets.left, insets.top );
-        int width = getWidth() - insets.left - insets.right;
-        int height = getHeight() - insets.top - insets.bottom;
+        int width = getWidth() - insets.left - insets.right - 1;
+        int height = getHeight() - insets.top - insets.bottom - 1;
 
         g.clearRect( 0, 0, width, height );
 
@@ -83,6 +85,16 @@ public class MazePanel extends JPanel
         {
             g.drawString( "W", roomX, roomY + ( roomHeight / 2 ) );
         }
+
+        Player player = state.getPlayer();
+        if ( player.getX() == 0 && player.getY() == 0 )
+        {
+            player.setX( roomX + ( roomWidth / 2 ) );
+            player.setY( roomY + ( roomHeight / 2 ) );
+        }
+
+        g.drawString( "X", player.getX(), player.getY() );
+
     }
 
 }

@@ -1,11 +1,14 @@
 package com.alltooeasy.maze;
 
+import java.awt.Color;
+
 import javax.swing.BorderFactory;
 import javax.swing.border.Border;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.alltooeasy.maze.domain.Player;
 import com.alltooeasy.maze.domain.Room;
 import com.alltooeasy.maze.ui.MazeKeyListener;
 import com.alltooeasy.maze.ui.MazePanel;
@@ -42,11 +45,17 @@ public class Maze
         two.setSouth( four );
         four.setNorth( two );
 
+        Player player = new Player();
+//        player.setX( 50 );
+//        player.setY( 77 );
+
         GameState state = new GameState();
         state.setRoom( one );
+        state.setPlayer( player );
 
         MazePanel mazePanel = new MazePanel();
-        Border border = BorderFactory.createEmptyBorder( 10, 10, 10, 10 );
+//        Border border = BorderFactory.createEmptyBorder( 10, 10, 10, 10 );
+        Border border = BorderFactory.createLineBorder( Color.YELLOW, 15 );
 //        Border border = BorderFactory.createBevelBorder( BevelBorder.LOWERED );
         mazePanel.setBorder( border );
 
