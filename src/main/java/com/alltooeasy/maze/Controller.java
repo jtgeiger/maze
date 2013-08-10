@@ -5,7 +5,7 @@ import java.awt.event.KeyEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.alltooeasy.maze.domain.Room;
+import com.alltooeasy.maze.domain.Player;
 import com.alltooeasy.maze.ui.MazePanel;
 
 public class Controller
@@ -40,6 +40,7 @@ public class Controller
         panel.display( state );
     }
 
+/*
     public void keyPressed( KeyEvent evt )
     {
         Room newRoom = null;
@@ -78,6 +79,47 @@ public class Controller
         if ( newRoom != null )
         {
             state.setRoom( newRoom );
+            update();
+        }
+    }
+*/
+    public void keyPressed( KeyEvent evt )
+    {
+        Player player = state.getPlayer();
+        int x = player.getX();
+        int y = player.getY();
+
+        boolean needUpdate = true;
+
+        int step = 3;
+
+        switch ( evt.getKeyCode() )
+        {
+            case KeyEvent.VK_UP:
+                y -= step;
+                break;
+
+            case KeyEvent.VK_RIGHT:
+                x += step;
+                break;
+
+            case KeyEvent.VK_DOWN:
+                y += step;
+                break;
+
+            case KeyEvent.VK_LEFT:
+                x -= step;
+                break;
+
+            default:
+                needUpdate = false;
+                log.error( "Unexpected key=" + evt );
+        }
+
+        if ( needUpdate )
+        {
+            player.setX( x );
+            player.setY( y );
             update();
         }
     }
