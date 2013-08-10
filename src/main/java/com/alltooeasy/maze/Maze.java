@@ -1,5 +1,8 @@
 package com.alltooeasy.maze;
 
+import javax.swing.BorderFactory;
+import javax.swing.border.Border;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -31,12 +34,17 @@ public class Maze
         Room two = new Room();
 
         one.setEast( two );
+        one.setNorth( new Room() );
         two.setWest( one );
+        two.setSouth( new Room() );
 
         GameState state = new GameState();
         state.setRoom( one );
 
         MazePanel mazePanel = new MazePanel();
+        Border border = BorderFactory.createEmptyBorder( 10, 10, 10, 10 );
+//        Border border = BorderFactory.createBevelBorder( BevelBorder.LOWERED );
+        mazePanel.setBorder( border );
 
         Controller controller = new Controller();
         controller.setPanel( mazePanel );

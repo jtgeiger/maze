@@ -42,21 +42,32 @@ public class Controller
 
     public void keyPressed( KeyEvent evt )
     {
+        Room newRoom = null;
+
         switch ( evt.getKeyCode() )
         {
+
+            case KeyEvent.VK_UP:
+            {
+                newRoom = state.getRoom().getNorth();
+                break;
+            }
+
             case KeyEvent.VK_RIGHT:
             {
-                Room east = state.getRoom().getEast();
-                if ( east != null )
-                    state.setRoom( east );
+                newRoom = state.getRoom().getEast();
+                break;
+            }
+
+            case KeyEvent.VK_DOWN:
+            {
+                newRoom = state.getRoom().getSouth();
                 break;
             }
 
             case KeyEvent.VK_LEFT:
             {
-                Room west = state.getRoom().getWest();
-                if ( west != null )
-                    state.setRoom( west );
+                newRoom = state.getRoom().getWest();
                 break;
             }
 
@@ -64,7 +75,11 @@ public class Controller
                 log.error( "Unexpected key=" + evt );
         }
 
-        update();
+        if ( newRoom != null )
+        {
+            state.setRoom( newRoom );
+            update();
+        }
     }
 
 }
