@@ -6,11 +6,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.alltooeasy.maze.domain.Player;
+import com.alltooeasy.maze.domain.Room;
 import com.alltooeasy.maze.ui.MazePanel;
 
 public class Controller
 {
     final static private Logger log = LoggerFactory.getLogger( Controller.class );
+
+
+    final static public int TRIGGER_MIN = 44;
+    final static public int TRIGGER_MAX = 55;
 
     private MazePanel panel;
     private GameState state;
@@ -118,6 +123,36 @@ public class Controller
 
         if ( needUpdate )
         {
+            Room room = state.getRoom();
+
+            boolean xTrigger = ( x > TRIGGER_MIN && x < TRIGGER_MAX );
+            boolean yTrigger = ( y > TRIGGER_MIN && y < TRIGGER_MAX );
+
+            if ( y < 0 && xTrigger && room.getNorth() != null )
+            {
+                state.setRoom( room.getNorth() );
+                //x = 50;
+                y = 99;
+            }
+            else if ( y > 99 && xTrigger && room.getSouth() != null )
+            {
+                state.setRoom( room.getSouth() );
+                //x = 50;
+                y = 0;
+            }
+            else if ( x < 0 && yTrigger && room.getWest() != null )
+            {
+                state.setRoom( room.getWest() );
+                x = 99;
+                //y = 50;
+            }
+            else if ( x > 99 && yTrigger && room.getEast() != null )
+            {
+                state.setRoom( room.getEast() );
+                x = 0;
+                //y = 50;
+            }
+
             if ( x > 99 )
                 x = 99;
             else if ( x < 0 )
