@@ -87,13 +87,11 @@ public class MazePanel extends JComponent
         }
 
         Player player = state.getPlayer();
-        if ( player.getX() == 0 && player.getY() == 0 )
-        {
-            player.setX( roomX + ( roomWidth / 2 ) );
-            player.setY( roomY + ( roomHeight / 2 ) );
-        }
 
-        g.drawString( "X", player.getX(), player.getY() );
+        int scaledX = (int)( player.getX() / 100.0 * roomWidth );
+        int scaledY = (int)( player.getY() / 100.0 * roomHeight );
+
+        g.drawString( "X", roomX + scaledX, roomY + scaledY );
 
     }
 

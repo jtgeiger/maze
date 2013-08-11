@@ -46,8 +46,8 @@ public class Maze
         four.setNorth( two );
 
         Player player = new Player();
-//        player.setX( 50 );
-//        player.setY( 77 );
+        player.setX( 50 );
+        player.setY( 50 );
 
         GameState state = new GameState();
         state.setRoom( one );

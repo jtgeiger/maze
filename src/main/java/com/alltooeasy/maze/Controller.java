@@ -118,8 +118,19 @@ public class Controller
 
         if ( needUpdate )
         {
+            if ( x > 99 )
+                x = 99;
+            else if ( x < 0 )
+                x = 0;
+
+            if ( y > 99 )
+                y = 99;
+            else if ( y < 0 )
+                y = 0;
+
             player.setX( x );
             player.setY( y );
+            log.info( "Player coords=({}, {}).", x, y );
             update();
         }
     }
